@@ -1,0 +1,344 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-billet: #f8d5d5;
+    --nav: #efa2a2;
+    --body: #f9ecec;
+    --button: #9A3737;
+    --button-hv: #b66666;
+}
+
+
+/* Style de la navbar */
+nav {
+    background-color: var(--nav);
+    padding: 1.2rem;
+    display: flex;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: larger;
+}
+
+nav a:not(.logo) {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: .6rem;
+    border-radius: 7px;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Style de la page active */
+nav div a.active:not(.logo) {
+    background-color: var(--button);
+    color: #fff;
+/*     border-bottom: 2px solid var(--active);
+ */    font-weight: bold;
+}
+
+nav div a:hover {
+    background-color: var(--body);
+    color: var(--button);
+    transition: all 0.5s;
+}
+
+nav img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    margin-right: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+/* page d'accueil */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--body);
+    /* Couleur de fond douce */
+    color: #333;
+    /* Couleur de texte sombre */
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* En-tête */
+h1 {
+    text-align: center;
+    margin: 2rem;
+    color: #4a4a4a;
+    /* Couleur de l'en-tête */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+/* billet */
+.billet {
+    background-color: var(--bg-billet);
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    padding: 2.3rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 1rem;
+    width: 350px;
+}
+
+.billet:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.billet h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+.billet span {
+    display: block;
+    margin-bottom: 10px;
+    color: #7f8c8d;
+}
+
+.commentaires {
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.commentaires h3 {
+    margin-top: -25px;
+    color: #4a4a4a;
+}
+
+.commentaire {
+    background-color: #f8eeee;
+    border: 1px solid #e1e1e1;
+    border-radius: 7px;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.commentaire p {
+    margin-bottom: 10px;
+}
+
+
+button, .button {
+    background-color: var(--button);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 1rem;
+/*     cursor: pointer;
+ */    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.ajout_com {
+    margin-bottom: 0;
+    margin-top: -10px;
+}
+
+.container_btn {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.modifie {
+    background-color: #ee9632;
+}
+
+.modifie:hover {
+    background-color: #f0b349;
+}
+
+.supprime {
+    background-color: #d33333;
+}
+
+.supprime:hover {
+    background-color: #ed4e4e;
+}
+
+button:hover, .button:hover {
+    background-color: var(--button-hv);
+}
+
+form {
+    margin-top: 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #4a4a4a;
+}
+
+
+/* archives */
+
+/* .archives .billet {
+    width: 100%;
+    padding: 1.5rem;
+
+} */
+
+
+/* page profil */
+
+/* styles.css */
+
+/* Mise en page de la page de profil */
+.page_profil {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    background-color: var(--bg-billet);
+}
+
+.page_profil h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.page_profil p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.page_profil img {
+    border-radius: 50%;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    height: 100px;
+    width: 100px;
+    margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+/* page de connexion et inscription*/
+
+.connexion {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    padding: 3rem;
+    background-color: var(--bg-billet);
+    border-radius: 10px;
+/*     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}
+
+.connexion h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: -1rem;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: var(--button);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--button-hv);
+    color: white;
+    transition: all ease-out 0.3s;
+}
+
+.connexion span {
+    font-style: italic;
+    font-size: small;
+}
+
+
+.sr-only {
+border: 0 !important;
+clip: rect(1px, 1px, 1px, 1px) !important;
+-webkit-clip-path: inset(50%) !important;
+clip-path: inset(50%) !important;
+height: 1px !important;
+overflow: hidden !important;
+padding: 0 !important;
+position: absolute !important;
+width: 1px !important;
+white-space: nowrap !important;
+}
+
+
+
+
+/* pages modifier */
+
+.page_modifier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    flex-direction: column;
+}
+
+.page_modifier button {
+    float: right;
+}
