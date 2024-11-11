@@ -48,7 +48,7 @@ nav div a.active:not(.logo) {
  */    font-weight: bold;
 }
 
-nav div a:hover {
+nav div a:hover:not(.deconnect) {
     background-color: var(--body);
     color: var(--button);
     transition: all 0.5s;
@@ -63,7 +63,9 @@ nav img {
     padding: 0;
 }
 
-
+nav .deconnect {
+    font-size: smaller;
+}
 
 
 /* page d'accueil */
@@ -210,11 +212,12 @@ h3 {
 
 /* archives */
 
-/* .archives .billet {
-    width: 100%;
-    padding: 1.5rem;
-
-} */
+.div_publie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
 
 
 /* page profil */

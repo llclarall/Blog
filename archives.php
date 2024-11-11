@@ -128,7 +128,7 @@ function getComments($db, $id_billet) {
 
     <!-- Formulaire de publication d'un billet pour le propriétaire -->
     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
-        <br><a href="publie_billet.php"><button>Publier un billet</button></a>
+        <br><a href="publie_billet.php" class="div_publie"><button class="publie">Publier un billet</button></a>
     <?php endif; ?>
 </body>
 </html>

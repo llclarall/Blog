@@ -16,10 +16,8 @@ function getComments($db, $id_billet) {
                           WHERE c.fk_billet = ? 
                           ORDER BY c.date_creation DESC");
     $stmt->execute([$id_billet]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +32,8 @@ function getComments($db, $id_billet) {
         function toggleComments(id_billet) {
             var billets = document.getElementsByClassName('billet');
             var commentsDiv = document.getElementById('commentaires-' + id_billet);
+            var voirPlus = document.querySelector('.voirPlus');
+
             
             // Si les commentaires sont déjà visibles, les masquer et tout réafficher
             if (commentsDiv.style.display === 'block') {
@@ -51,6 +51,7 @@ function getComments($db, $id_billet) {
                     }
                 }
                 commentsDiv.style.display = 'block'; // Afficher les commentaires du billet sélectionné
+                voirPlus.style.display = 'none'; // Masquer le bouton "Voir plus"
             }
         }
     </script>
@@ -132,7 +133,7 @@ function getComments($db, $id_billet) {
 <br>
 
 <div class="container_btn">
-        <a href="archives.php" class="button">Voir plus</a><br>
+        <a href="archives.php" class="button voirPlus">Voir plus</a><br>
         <!-- Formulaire de publication d'un billet pour le propriétaire -->
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
             <br><a href="publie_billet.php" class="button">Publier un billet</a>
