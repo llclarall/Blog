@@ -1,6 +1,12 @@
 <?php 
+
 require 'connect.php';
 include 'navbar.php';
+
+if (!isset($_SESSION['login'])) {
+    echo "Vous devez être connecté pour accéder à cette page. <a href='login.php'>Se connecter</a>";
+    exit();
+}
 
 
 // Récupérer les 3 derniers billets
@@ -28,6 +34,11 @@ function getComments($db, $id_billet) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <link rel="stylesheet" href="styles.css">
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
     <script>
         // Fonction pour afficher uniquement les commentaires du billet sélectionné et masquer les autres billets
         function toggleComments(id_billet) {
@@ -63,6 +74,29 @@ function getComments($db, $id_billet) {
             <strong><h2><?php echo ($billet['titre']); ?></h2></strong>
             <span><em>Publié le : <?php echo date('d/m/Y H:i', strtotime($billet['date_publication'])); ?></em></span>
             <p><?php echo nl2br(($billet['contenu'])); ?></p><br>
+
+                <!-- Like container uniquement si l'utilisateur est connecté -->
+                <?php if (isset($_SESSION['login'])): ?>
+                <div class="like-container">
+                    <?php
+                    // Vérifie si l'utilisateur a liké ce billet
+                    $stmt = $db->prepare("SELECT id_like FROM likes WHERE fk_user = ? AND fk_billet = ?");
+                    $stmt->execute([$_SESSION['login'], $billet['id_billet']]);
+                    $liked = $stmt->rowCount() > 0; // Si l'utilisateur a liké, liked sera vrai
+                    ?>
+                    <i id="heart-<?= $billet['id_billet']; ?>" class="heart-icon fa fa-heart <?= $liked ? 'liked' : ''; ?>" onclick="toggleLike(<?= $billet['id_billet']; ?>)"></i>
+                    <span id="like-count-<?= $billet['id_billet']; ?>">
+                        <?php
+                        // Affiche le nombre de likes
+                        $stmt = $db->prepare("SELECT COUNT(*) FROM likes WHERE fk_billet = ?");
+                        $stmt->execute([$billet['id_billet']]);
+                        $likeCount = $stmt->fetchColumn();
+                        echo $likeCount;
+                        ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+
 
             <!-- Bouton pour afficher ou masquer les commentaires -->
             <?php 
@@ -130,5 +164,7 @@ function getComments($db, $id_billet) {
     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
         <br><a href="publie_billet.php" class="div_publie"><button class="publie">Publier un billet</button></a>
     <?php endif; ?>
+
+    <script src="script.js"></script>
 </body>
 </html>

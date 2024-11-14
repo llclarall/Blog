@@ -11,10 +11,10 @@ $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Fonction pour récupérer les commentaires d'un billet
 function getComments($db, $id_billet) {
     $stmt = $db->prepare("SELECT c.id_com, c.comment, c.date_creation, u.id_user 
-                          FROM commentaires c 
-                          JOIN utilisateurs u ON c.fk_user = u.id_user
-                          WHERE c.fk_billet = ? 
-                          ORDER BY c.date_creation DESC");
+    FROM commentaires c 
+    JOIN utilisateurs u ON c.fk_user = u.id_user
+    WHERE c.fk_billet = ? 
+    ORDER BY c.date_creation DESC");
     $stmt->execute([$id_billet]);
     return $stmt->fetchAll();
 }
@@ -23,39 +23,16 @@ function getComments($db, $id_billet) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="images/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        // Fonction pour afficher uniquement les commentaires du billet sélectionné et masquer les autres billets
-        function toggleComments(id_billet) {
-            var billets = document.getElementsByClassName('billet');
-            var commentsDiv = document.getElementById('commentaires-' + id_billet);
-            var voirPlus = document.querySelector('.voirPlus');
-
-            
-            // Si les commentaires sont déjà visibles, les masquer et tout réafficher
-            if (commentsDiv.style.display === 'block') {
-                for (var i = 0; i < billets.length; i++) {
-                    billets[i].style.display = 'block'; // Réafficher tous les billets
-                }
-                commentsDiv.style.display = 'none'; // Masquer les commentaires
-            } else {
-                // Masquer tous les billets sauf celui sélectionné
-                for (var i = 0; i < billets.length; i++) {
-                    if (billets[i].id === 'billet-' + id_billet) {
-                        billets[i].style.display = 'block'; // Afficher le billet sélectionné
-                    } else {
-                        billets[i].style.display = 'none'; // Masquer les autres billets
-                    }
-                }
-                commentsDiv.style.display = 'block'; // Afficher les commentaires du billet sélectionné
-                voirPlus.style.display = 'none'; // Masquer le bouton "Voir plus"
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
+</head>
+
 <body>
     <h1>Bienvenue à MMind !</h1>
 
@@ -66,6 +43,29 @@ function getComments($db, $id_billet) {
             <strong><h2><?php echo ($billet['titre']); ?></h2></strong>
             <span><em>Publié le : <?php echo date('d/m/Y H:i', strtotime($billet['date_publication'])); ?></em></span>
             <p><?php echo nl2br(($billet['contenu'])); ?></p><br>
+
+            <!-- Like container uniquement si l'utilisateur est connecté -->
+            <?php if (isset($_SESSION['login'])): ?>
+                <div class="like-container">
+                    <?php
+                    // Vérifie si l'utilisateur a liké ce billet
+                    $stmt = $db->prepare("SELECT id_like FROM likes WHERE fk_user = ? AND fk_billet = ?");
+                    $stmt->execute([$_SESSION['login'], $billet['id_billet']]);
+                    $liked = $stmt->rowCount() > 0; // Si l'utilisateur a liké, liked sera vrai
+                    ?>
+                    <i id="heart-<?= $billet['id_billet']; ?>" class="heart-icon fa fa-heart <?= $liked ? 'liked' : ''; ?>" onclick="toggleLike(<?= $billet['id_billet']; ?>)"></i>
+                    <span id="like-count-<?= $billet['id_billet']; ?>">
+                        <?php
+                        // Affiche le nombre de likes
+                        $stmt = $db->prepare("SELECT COUNT(*) FROM likes WHERE fk_billet = ?");
+                        $stmt->execute([$billet['id_billet']]);
+                        $likeCount = $stmt->fetchColumn();
+                        echo $likeCount;
+                        ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+
 
             <!-- Bouton pour afficher ou masquer les commentaires -->
             <?php 
@@ -133,12 +133,15 @@ function getComments($db, $id_billet) {
 <br>
 
 <div class="container_btn">
-        <a href="archives.php" class="button voirPlus">Voir plus</a><br>
+        <?php if (isset($_SESSION['login'])): ?>
+            <a href="archives.php" class="button voirPlus">Voir plus</a><br>
+        <?php endif; ?>
         <!-- Formulaire de publication d'un billet pour le propriétaire -->
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
             <br><a href="publie_billet.php" class="button">Publier un billet</a>
         <?php endif; ?>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>

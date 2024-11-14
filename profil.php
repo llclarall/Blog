@@ -1,6 +1,12 @@
 <?php 
+
 require 'connect.php';
 include 'navbar.php';
+
+if (!isset($_SESSION['login'])) {
+    echo "Vous devez être connecté pour accéder à cette page. <a href='login.php'>Se connecter</a>";
+    exit();
+}
 
 // Récupérer le login de l'utilisateur connecté depuis la session
 $login = $_SESSION['login'];
@@ -53,8 +59,13 @@ if (!$utilisateur) {
 <form id="photoForm" action="ajoute_photo.php" method="post" enctype="multipart/form-data" style="display:none;">
     <input type="file" id="fileInput" name="photo" accept="image/jpeg, image/png" onchange="document.getElementById('photoForm').submit();">
 </form>
+
+    <!-- Formulaire de publication d'un billet pour le propriétaire -->
 </div>
 <br>
+<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
+    <br><a href="publie_billet.php" class="div_publie"><button class="publie">Publier un billet</button></a>
+<?php endif; ?>
 
 </body>
 </html>

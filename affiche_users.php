@@ -1,7 +1,13 @@
 
 <?php
+
 require 'connect.php';
 include 'navbar.php';
+
+if (!isset($_SESSION['login'])) {
+    echo "Vous devez être connecté pour accéder à cette page. <a href='login.php'>Se connecter</a>";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,5 +46,10 @@ include 'navbar.php';
 
 ?>
 </div>
+
+    <!-- Formulaire de publication d'un billet pour le propriétaire -->
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire'): ?>
+        <br><a href="publie_billet.php" class="div_publie"><button class="publie">Publier un billet</button></a>
+    <?php endif; ?>
 </body>
 </html>

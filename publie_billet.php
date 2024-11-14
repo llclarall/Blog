@@ -1,6 +1,12 @@
 <?php
+
 require 'connect.php';
 include 'navbar.php';
+
+if (!isset($_SESSION['login'])) {
+    echo "Vous devez être connecté pour accéder à cette page. <a href='login.php'>Se connecter</a>";
+    exit();
+}
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,14 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h1>Publier un Nouveau Billet</h1>
-    <form method="post" action="">
-        <label for="titre">Titre:</label><br>
-        <input type="text" id="titre" name="titre" required><br><br>
-
-        <label for="contenu">Contenu:</label><br>
-        <textarea id="contenu" name="contenu" rows="10" cols="30" required></textarea><br><br>
-
-        <input type="submit" value="Publier">
-    </form>
+    <div class="connexion">
+        <form method="post" action="" class="form_billet">
+            <label for="titre">Titre:</label><br>
+            <input type="text" id="titre" name="titre" required><br><br>
+            <label for="contenu">Contenu:</label><br>
+            <textarea id="contenu" name="contenu" rows="10" cols="30" required></textarea><br><br>
+            <input type="submit" value="Publier">
+        </form>
+    </div>
 </body>
 </html>

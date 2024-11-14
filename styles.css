@@ -188,7 +188,7 @@ button, .button {
     background-color: #ed4e4e;
 }
 
-button:hover, .button:hover {
+button:hover:not(.like-btn), .button:hover {
     background-color: var(--button-hv);
 }
 
@@ -210,6 +210,34 @@ h3 {
 }
 
 
+/* fonctionnalité likes */
+.like-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: right;
+    gap: 10px;
+}
+
+.like-count {
+    margin-right: 8px;
+    font-size: 1.3em;
+}
+
+.like-container .heart-icon {
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    color: #7f8c8d;
+}
+
+.heart-icon.liked {
+    color: var(--button); 
+}
+
+.heart-icon:hover {
+    color: var(--button-hv); /* Couleur au survol */
+}
+
 /* archives */
 
 .div_publie {
@@ -220,10 +248,10 @@ h3 {
 }
 
 
-/* page profil */
-
-/* styles.css */
-
+/* .form_billet {
+    width: 40%;
+}
+ */
 /* Mise en page de la page de profil */
 .page_profil {
     max-width: 600px;
