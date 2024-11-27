@@ -16,7 +16,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
     // Récupérer l'utilisateur
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Vérifier le mot de passe avec password_verify()
+    // Vérifier le mot de passe 
     if ($user && password_verify($password, $user['mdp'])) {
         // Créer une session pour l'utilisateur
         $_SESSION['login'] = $user['id_user'];
