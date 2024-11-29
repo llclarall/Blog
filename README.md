@@ -2,18 +2,20 @@ Un blog développé en PHP et hébergé sur o2switch, permettant la gestion des 
 
 🌐 Lien du projet : https://blog.moubarak.butmmi.o2switch.site
 
+ 
 📋 Fonctionnalités
 
-**Utilisateurs** : Inscription, connexion et rôles (propriétaire, utilisateur).
-Billets : Création, modification, suppression.
+**Utilisateurs** : Inscription, connexion et rôles (propriétaire, utilisateur). <br>
+**Billets** : Création, modification, suppression. <br>
 **Commentaires** : Ajout, modification, suppression par auteur ou propriétaire.
 Likes : Possibilité de liker les billets.
 
 🛠️ Technologies
-**Langage** : PHP
-**Base de données** : MySQL
-**Frontend** : HTML, CSS, JavaScript
 
-Identifiants Administrateur pour tester
-Login : clara@gmail.com
+**Langage** : PHP  <br>
+**Base de données** : MySQL  <br>
+**Frontend** : HTML, CSS, JavaScript  <br>
+
+Identifiants Administrateur pour tester  <br>
+Login : clara@gmail.com  <br>
 Mot de passe : clara
