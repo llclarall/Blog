@@ -23,6 +23,7 @@ function getComments($db, $id_billet) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- le favicon ne marche pas jsp pq -->
     <link rel="icon" href="images/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
