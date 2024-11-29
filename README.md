@@ -5,7 +5,7 @@ Un blog développé en PHP et hébergé sur o2switch, permettant la gestion des 
 📋 Fonctionnalités
 
 **Utilisateurs** : Inscription, connexion et rôles (propriétaire, utilisateur).
-**Billets** : Création, modification, suppression.
+Billets : Création, modification, suppression.
 **Commentaires** : Ajout, modification, suppression par auteur ou propriétaire.
 Likes : Possibilité de liker les billets.
 
