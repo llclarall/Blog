@@ -1,7 +1,7 @@
 Un blog développé en PHP et hébergé sur o2switch, permettant la gestion des utilisateurs, des billets, et des commentaires.
 
-🌐 Lien du projet : https://blog.moubarak.butmmi.o2switch.site
-
+🚀 Lien du projet : https://blog.moubarak.butmmi.o2switch.site <br>
+🌐 Lien du dépôt GitHub : https://github.com/llclarall/Blog.git
  
 📋 Fonctionnalités
 
