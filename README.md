@@ -7,8 +7,8 @@ Un blog développé en PHP et hébergé sur o2switch, permettant la gestion des 
 
 **Utilisateurs** : Inscription, connexion et rôles (propriétaire, utilisateur). <br>
 **Billets** : Création, modification, suppression. <br>
-**Commentaires** : Ajout, modification, suppression par auteur ou propriétaire.
-Likes : Possibilité de liker les billets.
+**Commentaires** : Ajout, modification, suppression par auteur ou propriétaire. <br>
+**Likes** : Possibilité de liker les billets.
 
 🛠️ Technologies
 
