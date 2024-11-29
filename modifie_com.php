@@ -1,4 +1,3 @@
-
 <?php
 require 'connect.php';
 include 'navbar.php';
@@ -20,7 +19,11 @@ if (isset($_GET['id_com']) && isset($_SESSION['login'])) {
             $update = $db->prepare("UPDATE commentaires SET comment = ? WHERE id_com = ?");
             $update->execute([$nouveau_commentaire, $id_commentaire]);
             
-            header("Location: index.php");
+            // Afficher une alerte et rediriger
+            echo "<script>
+                alert('Votre commentaire a été modifié avec succès !');
+                window.location.href = 'index.php';
+            </script>";
             exit();
         }
     } else {

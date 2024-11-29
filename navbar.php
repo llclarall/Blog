@@ -15,15 +15,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
         // Afficher "Accueil", "Mon Profil" et "Archives" uniquement si l'utilisateur est connecté
         if (isset($_SESSION['login'])){
             echo '<a href="index.php" class="'. ($current_page == 'index.php' ? 'active' : '') .'">Accueil</a>';
-            echo '<a href="profil.php" class="'. ($current_page == 'profil.php' ? 'active' : '') .'">Mon Profil</a>';
             echo '<a href="archives.php" class="'. ($current_page == 'archives.php' ? 'active' : '') .'">Archives</a>';
+            echo '<a href="profil.php" class="'. ($current_page == 'profil.php' ? 'active' : '') .'">Profil</a>';
             
             // Afficher "Utilisateurs" uniquement si l'utilisateur est propriétaire
             if (isset($_SESSION['role']) && $_SESSION['role'] === 'proprietaire') {
                 echo '<a href="affiche_users.php">Utilisateurs</a>';
             }
             
-            echo '<a href="deconnect.php" class="deconnect">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>';
+            echo '<a href="deconnect.php" class="deconnect"><div class="sr-only">Se déconnecter</div><i class="fa-solid fa-right-from-bracket"></i></a>';
         } else {
             // Si l'utilisateur n'est pas connecté, afficher "Se connecter"
             echo '<a href="index.php" class="'. ($current_page == 'index.php' ? 'active' : '') .'">Accueil</a>';

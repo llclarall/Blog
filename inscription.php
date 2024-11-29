@@ -43,40 +43,35 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
 <h2>Inscription</h2>
 
-    <form action="traite_inscription.php" method="post" onsubmit="return verifierFormulaire()">
-
-        <label for="prenom">Prenom :</label>
+<form action="traite_inscription.php" method="post" onsubmit="return verifierFormulaire()">
+        <label for="prenom">Prénom :</label>
         <input type="text" id="prenom" name="prenom" required><br>
 
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" required><br>
 
         <label for="login">Login (mail) :</label>
-        <input type="text" id="login" name="login" required><br>
+        <input type="email" id="login" name="login" required><br>
 
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required><br>
+        <label for="password">Mot de passe :</label><br>
+        <div class="password-container">
+            <input type="password" id="password" name="password" required>
+            <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+        </div>  
 
-        <label for="confirm_password">Confirmer mot de passe :</label>
-        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+        <label for="confirm_password">Confirmer mot de passe :</label><br>
+        <div class="password-container">
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <span class="toggle-password" onclick="togglePassword('confirm_password', this)">👁️</span>
+        </div>
+        <br><br>
 
         <input type="submit" value="S'inscrire">
-        <span>tous les champs sont obligatoires</span>
+        <span>Tous les champs sont obligatoires</span>
     </form>
 
 </section>
 
-    <script>
-        function verifierFormulaire() {
-            var password = document.getElementById('password').value;
-            var confirmPassword = document.getElementById('confirm_password').value;
-
-            if (password !== confirmPassword) {
-                alert("Les mots de passe ne correspondent pas.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

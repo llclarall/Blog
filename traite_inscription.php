@@ -32,12 +32,21 @@ if (isset($_POST['login']) && isset($_POST['nom']) && isset($_POST['prenom']) &&
         $stmt->bindParam(':mdp', $hashedPassword);
 
         if ($stmt->execute()) {
-            echo "Inscription réussie. Vous pouvez maintenant <a href='login.php'>vous connecter</a>.";
+            echo "<script>
+            alert('Inscription réussie ! Vous allez être redirigé vers la page de connexion.');
+            window.location.href = 'login.php';
+          </script>";;
         } else {
-            echo "Erreur lors de l'inscription. Veuillez réessayer.";
+            echo "<script>
+            alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+            window.location.href = 'inscription.php';
+          </script>";
         }
     } else {
-        echo "Les mots de passe ne correspondent pas.";
+        echo "<script>
+            alert('Les mots de passe ne correspondent pas');
+            window.location.href = 'inscription.php';
+          </script>";
     }
 } else {
     echo "Tous les champs doivent être remplis.";

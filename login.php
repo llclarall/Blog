@@ -24,16 +24,20 @@ include 'navbar.php';
     ?>
 
     <form action="traitelogin.php" method="post">
-        <label for="login">Login :</label>
+        <label for="login">Login (mail) :</label>
         <input type="text" id="login" name="login" required><br><br>
 
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <label for="password">Mot de passe :</label><br>
+        <div class="password-container">
+            <input type="password" id="password" name="password" required>
+            <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+        </div><br>
 
         <input type="submit" value="Se connecter">
     </form> <br>
     <p>Pas encore de compte ? <a href="inscription.php">S'inscrire</a></p>
 
 </section>
+<script src="script.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fonction pour récupérer les commentaires d'un billet
 function getComments($db, $id_billet) {
-    $stmt = $db->prepare("SELECT c.id_com, c.comment, c.date_creation, u.id_user 
+    $stmt = $db->prepare("SELECT c.id_com, c.comment, c.date_creation, u.id_user, u.photo  
     FROM commentaires c 
     JOIN utilisateurs u ON c.fk_user = u.id_user
     WHERE c.fk_billet = ? 
@@ -76,6 +76,7 @@ function getComments($db, $id_billet) {
             </button>
 
 
+
             <!-- Afficher les commentaires du billet, masqués par défaut -->    
             <div class="commentaires" id="commentaires-<?php echo $billet['id_billet']; ?>" style="display: none;">
             <h3>Commentaires</h3> <br>
@@ -85,20 +86,25 @@ function getComments($db, $id_billet) {
                 foreach ($commentaires as $commentaire): ?>
                     <div class="commentaire">
                         <p><?php echo nl2br(($commentaire['comment'])); ?></p>
-                        <em><small>Par <?php echo htmlspecialchars($commentaire['id_user']); ?>, le <?php echo date('d/m/Y H:i', strtotime($commentaire['date_creation'])); ?></small></em>
+                        <!-- Photo de profil -->
+                        <img src="<?php echo (!empty($commentaire['photo']) ? $commentaire['photo'] : 'photo/filler.jpg'); ?>" alt="Photo de profil de <?php echo htmlspecialchars($commentaire['id_user']); ?>" 
+                        style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;      object-fit: cover;">
+                        <em><small>Par <?php echo ($commentaire['id_user']); ?>, le <?php echo date('d/m/Y H:i', strtotime($commentaire['date_creation'])); ?></small></em>
                         
                         <div class="container_btn">
                             <?php 
                             // Vérifie si l'utilisateur connecté est admin, propriétaire, ou auteur du commentaire
                             if ((isset($_SESSION['role']) && ($_SESSION['role'] === 'proprietaire')) 
                                 || (isset($_SESSION['login']) && $_SESSION['login'] == $commentaire['id_user'])): ?>
-                                <!-- Bouton pour modifier le commentaire (visible pour propriétaire ou auteur) -->
+                                <!-- Bouton pour modifier le commentaire (visible pour propriétaire) -->
                                 <?php if (isset($_SESSION['login']) && $_SESSION['login'] == $commentaire['id_user']): ?>
                                     <a href="modifie_com.php?id_com=<?php echo $commentaire['id_com']; ?>"><button class="modifie">Modifier</button></a>
                                 <?php endif; ?>
                                 
-                                <!-- Bouton pour supprimer le commentaire (visible pour admin, propriétaire ou auteur) -->
-                                <a href="supprime_com.php?id_com=<?php echo $commentaire['id_com']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');"><button class="supprime">Supprimer</button></a>
+                                <!-- Bouton pour supprimer le commentaire (visible pour propriétaire) -->
+                                <a href="supprime_com.php?id_com=<?php echo $commentaire['id_com']; ?>&id_billet=<?php echo $billet['id_billet']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">
+                                    <button class="supprime">Supprimer</button>
+                                </a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -119,13 +125,17 @@ function getComments($db, $id_billet) {
 
             <!-- Formulaire pour ajouter un commentaire (visible uniquement si l'utilisateur est connecté) -->
             <?php if (isset($_SESSION['login'])): ?>
-                <form method="post" action="ajoute_commentaire.php">
+                <form method="post" action="ajoute_commentaire.php" id="comment-form">
                     <input type="hidden" name="id_billet" value="<?php echo $billet['id_billet']; ?>">
                 
                     <label for="com" class="sr-only">Votre commentaire :</label>
                     <textarea id="com" name="contenu" placeholder="Votre commentaire..." required></textarea><br><br>
                     <button type="submit" class="ajout_com">Ajouter un commentaire</button>
                 </form>
+
+                <div id="success-message" style="display: none; color: green;">Commentaire ajouté avec succès !</div>
+
+
             <?php endif; ?>
         </div>
     <?php endforeach; ?>

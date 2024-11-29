@@ -16,13 +16,13 @@ $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fonction pour récupérer les commentaires d'un billet
 function getComments($db, $id_billet) {
-    $stmt = $db->prepare("SELECT c.id_com, c.comment, c.date_creation, u.id_user 
-                          FROM commentaires c 
-                          JOIN utilisateurs u ON c.fk_user = u.id_user
-                          WHERE c.fk_billet = ? 
-                          ORDER BY c.date_creation DESC");
+    $stmt = $db->prepare("SELECT c.id_com, c.comment, c.date_creation, u.id_user, u.photo  
+    FROM commentaires c 
+    JOIN utilisateurs u ON c.fk_user = u.id_user
+    WHERE c.fk_billet = ? 
+    ORDER BY c.date_creation DESC");
     $stmt->execute([$id_billet]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
 }
 
 ?>
@@ -39,32 +39,6 @@ function getComments($db, $id_billet) {
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
-    <script>
-        // Fonction pour afficher uniquement les commentaires du billet sélectionné et masquer les autres billets
-        function toggleComments(id_billet) {
-            var billets = document.getElementsByClassName('billet');
-            var commentsDiv = document.getElementById('commentaires-' + id_billet);
-            
-            // Si les commentaires sont déjà visibles, les masquer et tout réafficher
-            if (commentsDiv.style.display === 'block') {
-                for (var i = 0; i < billets.length; i++) {
-                    billets[i].style.display = 'block'; // Réafficher tous les billets
-                }
-                commentsDiv.style.display = 'none'; // Masquer les commentaires
-            } else {
-                // Masquer tous les billets sauf celui sélectionné
-                for (var i = 0; i < billets.length; i++) {
-                    if (billets[i].id === 'billet-' + id_billet) {
-                        billets[i].style.display = 'block'; // Afficher le billet sélectionné
-                    } else {
-                        billets[i].style.display = 'none'; // Masquer les autres billets
-                    }
-                }
-                commentsDiv.style.display = 'block'; // Afficher les commentaires du billet sélectionné
-            }
-        }
-    </script>
-</head>
 <body>
     <h1>Bienvenue à MMind !</h1>
 
@@ -115,7 +89,10 @@ function getComments($db, $id_billet) {
                 foreach ($commentaires as $commentaire): ?>
                     <div class="commentaire">
                         <p><?php echo nl2br(($commentaire['comment'])); ?></p>
-                        <em><small>Par <?php echo htmlspecialchars($commentaire['id_user']); ?>, le <?php echo date('d/m/Y H:i', strtotime($commentaire['date_creation'])); ?></small></em>
+                        <!-- Photo de profil -->
+                        <img src="<?php echo (!empty($commentaire['photo']) ? $commentaire['photo'] : 'photo/filler.jpg'); ?>" alt="Photo de profil de <?php echo ($commentaire['id_user']); ?>" 
+                        style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;      object-fit: cover;">
+                        <em><small>Par <?php echo ($commentaire['id_user']); ?>, le <?php echo date('d/m/Y H:i', strtotime($commentaire['date_creation'])); ?></small></em>
                         
                         <div class="container_btn">
                             <?php 
