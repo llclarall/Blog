@@ -30,3 +30,45 @@ function toggleComments(id_billet) {
         if (voirPlus) voirPlus.style.display = 'none'; 
     }
 }
+
+
+
+ /* fonction pour liker */
+function toggleLike(billetId) {
+const heartIcon = document.getElementById(`heart-${billetId}`);
+const likeCount = document.getElementById(`like-count-${billetId}`);
+// Envoie la requête AJAX pour enregistrer ou supprimer le like
+const xhr = new XMLHttpRequest();
+xhr.open("POST", "like.php", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        // Mise à jour du nombre de likes et de l'état du like
+        likeCount.textContent = response.likes;
+        // Change l'apparence du cœur
+        if (response.liked) {
+            heartIcon.classList.add('liked'); // Cœur rempli
+        } else {
+            heartIcon.classList.remove('liked'); // Cœur vide
+        }
+    }
+};
+xhr.send(`billet_id=${billetId}`);
+}
+
+
+
+// Fonction pour afficher ou masquer le mot de passe
+function togglePassword(inputId, toggleElement) {
+    const passwordInput = document.getElementById(inputId);
+
+    // Vérifie le type actuel de l'input
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleElement.textContent = "🙈"; 
+    } else {
+        passwordInput.type = "password";
+        toggleElement.textContent = "👁️"; 
+    }
+}
